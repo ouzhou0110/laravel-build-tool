@@ -1,0 +1,33 @@
+{
+    "name": "zhouou/laravel-build-tool",
+    "description": "nothing",
+    "type": "library",
+    "version": "v1.0.1",
+    "license": "MIT",
+    "keywords": ["artisan", "command", "tool"],
+    "time":"2020-03-11",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "ZhouOu",
+            "email": "jw.oz@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ZhouOu\\LaravelTool\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ZhouOu\\LaravelTool\\BuilderProvider"
+            ],
+            "aliases": {
+            }
+        }
+    },
+    "require": {
+        "php": "^7.0.0"
+    }
+}
