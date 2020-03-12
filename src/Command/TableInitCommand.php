@@ -3,6 +3,7 @@ namespace ZhouOu\LaravelTool\Command;
 
 use Illuminate\Console\Command;
 use ZhouOu\LaravelTool\Generator\ModelGenerator;
+use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\PathTool;
 
 class TableInitCommand extends Command
@@ -50,11 +51,7 @@ class TableInitCommand extends Command
 
     private function _make_model($config)
     {
-        // 读取默认配置--框架中config目录下没有找到，就使用包中config
-        if (!$tableBaseConfig = config('tableConfig')) {
-            $tableBaseConfig = require_once __DIR__ . '/../Config/tableConfig.php';
-        }
-
+        $tableBaseConfig = ConfigTool::get('tableConfig');
         // 开启了model组件初始化
         if (true === $tableBaseConfig['tableInit']['model']) {
             ModelGenerator::init($tableBaseConfig, $config);

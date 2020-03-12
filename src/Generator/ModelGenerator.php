@@ -9,8 +9,8 @@ class ModelGenerator extends BaseGenerator
         $commonPath = './' . trim(lcfirst(str_replace('\\', '/', $baseConfig['tableNamespace'])), '/');
         // 组装model基本信息
         $baseInfo = [
-            'fatherPath' => $commonPath . '/Models/Commons/CommonModel.php',
-            'selfPath' => $commonPath . $sonConfig['filePath'] . '/' . $sonConfig['fileName'] . 'Model.php',
+            'fatherPath' => $commonPath . '/Models/Commons/CommonModel.txt',
+            'selfPath' => $commonPath . $sonConfig['filePath'] . '/Models/' . $sonConfig['fileName'] . 'Model.php',
             'templatePath' => '../Table/Model/Template/ChildTemplateModel.txt',
             'replace' => [
                 '@{fatherNamespace}' => $baseConfig['tableNamespace'] . '\Models\Commons\CommonModel',
