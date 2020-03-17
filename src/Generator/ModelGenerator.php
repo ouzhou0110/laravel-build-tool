@@ -10,16 +10,16 @@ class ModelGenerator extends BaseGenerator
         // 组装model基本信息
         $baseInfo = [
             'fatherPath' => $commonPath . '/Models/Commons/CommonModel.txt',
-            'selfPath' => $commonPath . $sonConfig['filePath'] . '/Models/' . $sonConfig['fileName'] . 'Model.php',
+            'selfPath' => $commonPath . '/Models' . $sonConfig['filePath'] . '/' . $sonConfig['fileName'] . 'Model.php',
             'templatePath' => '../Table/Model/Template/ChildTemplateModel.txt',
             'replace' => [
                 '@{fatherNamespace}' => $baseConfig['tableNamespace'] . '\Models\Commons\CommonModel',
-                '@{selfNamespace}' => $baseConfig['tableNamespace'] . $sonConfig['namespace'],
+                '@{selfNamespace}' => $baseConfig['tableNamespace'] . '\Models' .  $sonConfig['namespace'],
                 '@{selfClassName}' => $sonConfig['fileName'] . 'Model',
                 '@{selfTableName}' => $baseConfig['tablePrefix'] . $sonConfig['tableName'],
             ],
         ];
-
+        $baseInfo['actionType'] = 'model';
         self::build($baseInfo);
     }
 }

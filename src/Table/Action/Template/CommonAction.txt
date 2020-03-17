@@ -1,0 +1,10 @@
+<?php
+
+namespace @{selfNamespace};
+
+use ZhouOu\LaravelTool\Table\Action\InitAction;
+
+abstract class CommonAction extends InitAction
+{
+    // 这里写拓展
+}

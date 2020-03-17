@@ -2,6 +2,7 @@
 namespace ZhouOu\LaravelTool\Command;
 
 use Illuminate\Console\Command;
+use ZhouOu\LaravelTool\Generator\ActionGenerator;
 use ZhouOu\LaravelTool\Generator\ModelGenerator;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\PathTool;
@@ -55,6 +56,11 @@ class TableInitCommand extends Command
         // 开启了model组件初始化
         if (true === $tableBaseConfig['tableInit']['model']) {
             ModelGenerator::init($tableBaseConfig, $config);
+        }
+
+        // 开始了action组件初始化
+        if (true === $tableBaseConfig['tableInit']['action']) {
+            ActionGenerator::init($tableBaseConfig, $config);
         }
     }
 }

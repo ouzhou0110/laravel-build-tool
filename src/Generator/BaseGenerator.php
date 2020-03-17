@@ -28,6 +28,11 @@ abstract class BaseGenerator
      */
     abstract public static function init($baseConfig, $sonConfig);
 
+    private static $actionMap = [
+        'action' => 'CommonActionGenerator',
+        'model' => 'CommonModelGenerator',
+    ];
+
     /**
      * @Function: build
      * @Notes: 生成对应模型
@@ -43,8 +48,20 @@ abstract class BaseGenerator
     {
         // 检测父级是否存在
         $have_father = (isset($config['fatherPath']) && strlen($config['fatherPath']) > 0);
+        $actionType = '模板';
         if ($have_father == true && !file_exists($config['fatherPath'])) {
-            if (false === CommonModelGenerator::init([],[])) {
+            $actionType = $config['actionType'];
+            switch ($actionType) {
+                case 'action':
+                    $result = CommonActionGenerator::init([],[]);
+                    break;
+                case 'model':
+                    $result = CommonModelGenerator::init([],[]);
+                    break;
+                default:
+                    $result = true;
+            }
+            if (false === $result) {
                 self::msg('[warning]父类不存在，请手动创建：' . $config['fatherPath']);
             }
         }
@@ -52,7 +69,7 @@ abstract class BaseGenerator
         if (file_exists($config['selfPath'])) {
             // 排除子级创建时，一直报父级存在错误
             if ($have_father == true) {
-                self::msg('[fatal error]当前model已经存在，无法重复创建:' . $config['selfPath']);
+                self::msg("[fatal error]当前$actionType 已经存在，无法重复创建:" . $config['selfPath']);
             }
             return;
         }
@@ -66,6 +83,7 @@ abstract class BaseGenerator
         // 替换标识
         $searchArr = [];
         $replaceArr = [];
+        unset($config['actionType']); // 排除干扰项
         foreach ($config['replace'] as $search => $replace) {
             $searchArr[] = $search;
             $replaceArr[] = $replace;
@@ -93,16 +111,16 @@ abstract class BaseGenerator
         $dir = dirname($path);
         if (!file_exists($dir)) {
             if (!mkdir($dir, 0777, true)) {
-                self::msg('[fatal error] 无法创建文件夹, model 生成失败：' . $dir);
+                self::msg('[fatal error] 无法创建文件夹, 模板生成失败：' . $dir);
                 return;
             }
         }
 
         // 覆盖模式
         if (file_put_contents($path, $content, 0)) {
-            self::msg('[success] model生成成功：' . $path);
+            self::msg('[success] 模板生成成功：' . $path);
         } else {
-            self::msg('[fail] model生成失败' . $path);
+            self::msg('[fail] 模板生成失败' . $path);
         }
     }
 
@@ -110,4 +128,5 @@ abstract class BaseGenerator
     {
         echo '[' . date('Y-m-d H:i:s') . "] $msg  \r\n";
     }
+
 }

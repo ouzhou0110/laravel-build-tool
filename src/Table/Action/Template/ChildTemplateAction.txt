@@ -1,0 +1,23 @@
+<?php
+namespace @{selfNamespace};
+
+use Illuminate\Database\Eloquent\Builder;
+use @{fatherNamespace};
+use @{selfModelNamespace}\@{selfModelName};
+
+class @{selfClassName} extends CommonAction
+{
+
+    /**
+     * @var @{selfModelName}|Builder
+     */
+    protected $model;
+
+    /**
+     *
+     */
+    public function model(): string
+    {
+        return @{selfModelName}::class;
+    }
+}

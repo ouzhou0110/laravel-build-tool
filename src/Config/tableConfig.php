@@ -16,7 +16,7 @@ return [
      */
     'tableInit' => [
         'model' => true,
-        'action' => false,
+        'action' => true,
         'query' => false,
         'logic' => false,
     ],
