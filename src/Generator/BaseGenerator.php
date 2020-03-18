@@ -1,6 +1,8 @@
 <?php
 namespace ZhouOu\LaravelTool\Generator;
 
+use ZhouOu\LaravelTool\Tool\FileTool;
+
 /**
  * Class BaseGenerator
  * @Notes: model、action、logic、query底层模板生成器
@@ -94,38 +96,7 @@ abstract class BaseGenerator
         }
         $template = str_replace($searchArr, $replaceArr, $template);
         // 生成文件
-        self::save($config['selfPath'], $template);
-    }
-
-    /**
-     * @Function: save
-     * @Notes: 保存
-     * @Author: zhou.ou
-     * @Email: <zhou.ou@starcor.com>
-     * @Date: 2020-03-12  16:33
-     *
-     * @param $path
-     * @param $content
-     *
-     *
-     */
-    private static function save($path, $content)
-    {
-        // 判断上级目录是否存在
-        $dir = dirname($path);
-        if (!file_exists($dir)) {
-            if (!mkdir($dir, 0777, true)) {
-                self::msg('[fatal error] 无法创建文件夹, 模板生成失败：' . $dir);
-                return;
-            }
-        }
-
-        // 覆盖模式
-        if (file_put_contents($path, $content, 0)) {
-            self::msg('[success] 模板生成成功：' . $path);
-        } else {
-            self::msg('[fail] 模板生成失败' . $path);
-        }
+        FileTool::save($config['selfPath'], $template);
     }
 
     public static function msg($msg)
