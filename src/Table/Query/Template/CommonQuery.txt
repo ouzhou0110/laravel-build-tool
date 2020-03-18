@@ -1,0 +1,10 @@
+<?php
+
+namespace @{selfNamespace};
+
+use ZhouOu\LaravelTool\Table\Query\InitQuery;
+
+abstract class CommonQuery extends InitQuery
+{
+    // 这里写拓展
+}

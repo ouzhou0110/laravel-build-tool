@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Builder;
 use @{fatherNamespace};
 use @{selfModelNamespace}\@{selfModelName};
 
-class @{selfClassName} extends CommonAction
+class @{selfClassName} extends CommonQuery
 {
 
     /**

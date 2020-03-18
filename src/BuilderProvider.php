@@ -5,6 +5,7 @@ namespace ZhouOu\LaravelTool;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 use ZhouOu\LaravelTool\Command\TableInitCommand;
+use ZhouOu\LaravelTool\Table\Query\Extend\ApiPaginator;
 
 class BuilderProvider extends ServiceProvider
 {
@@ -15,7 +16,8 @@ class BuilderProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // 注入api分页
+        ApiPaginator::inject();
     }
 
     /**

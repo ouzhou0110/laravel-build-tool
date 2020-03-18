@@ -31,6 +31,7 @@ abstract class BaseGenerator
     private static $actionMap = [
         'action' => 'CommonActionGenerator',
         'model' => 'CommonModelGenerator',
+        'query' => 'CommonQueryGenerator'
     ];
 
     /**
@@ -57,6 +58,9 @@ abstract class BaseGenerator
                     break;
                 case 'model':
                     $result = CommonModelGenerator::init([],[]);
+                    break;
+                case 'query':
+                    $result = CommonQueryGenerator::init([],[]);
                     break;
                 default:
                     $result = true;

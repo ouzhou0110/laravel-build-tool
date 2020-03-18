@@ -15,9 +15,9 @@ return [
      * 使用zhouou:table命令时生成的组件
      */
     'tableInit' => [
-        'model' => true,
-        'action' => true,
-        'query' => false,
+        'model' => false,
+        'action' => false,
+        'query' => true,
         'logic' => false,
     ],
 ];
