@@ -17,7 +17,7 @@ class CommonModelGenerator extends BaseGenerator
 
     public static function init($baseConfig, $sonConfig)
     {
-        $baseConfig = ConfigTool::get('tableConfig');
+        $baseConfig = ConfigTool::get('zhouOuConfig');
 
         $commonPath = './' . trim(lcfirst(str_replace('\\', '/', $baseConfig['tableNamespace'])), '/');
         $baseInfo = [

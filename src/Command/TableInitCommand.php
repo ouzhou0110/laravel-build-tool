@@ -53,7 +53,7 @@ class TableInitCommand extends Command
 
     private function _make_model($config)
     {
-        $tableBaseConfig = ConfigTool::get('tableConfig');
+        $tableBaseConfig = ConfigTool::get('zhouOuConfig');
         // 开启了model组件初始化
         if (true === $tableBaseConfig['tableInit']['model']) {
             ModelGenerator::init($tableBaseConfig, $config);

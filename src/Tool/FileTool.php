@@ -38,6 +38,10 @@ class FileTool
 
     public static function msg($msg)
     {
+        $isPrint = ConfigTool::get('zhouOuConfig')['isOpenPrintDebugInfo'];
+        if ($isPrint == false) {
+            return;
+        }
         echo '[' . date('Y-m-d H:i:s') . "] $msg  \r\n";
     }
 }

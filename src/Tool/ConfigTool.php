@@ -1,6 +1,5 @@
 <?php
 namespace ZhouOu\LaravelTool\Tool;
-
 final class ConfigTool
 {
     private static $config;

@@ -1,6 +1,7 @@
 <?php
 namespace ZhouOu\LaravelTool\Generator;
 
+use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\FileTool;
 
 /**
@@ -101,6 +102,10 @@ abstract class BaseGenerator
 
     public static function msg($msg)
     {
+        $isPrint = ConfigTool::get('zhouOuConfig')['isOpenPrintDebugInfo'];
+        if ($isPrint == false) {
+            return;
+        }
         echo '[' . date('Y-m-d H:i:s') . "] $msg  \r\n";
     }
 
