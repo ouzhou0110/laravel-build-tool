@@ -5,6 +5,7 @@ namespace ZhouOu\LaravelTool;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 use ZhouOu\LaravelTool\Command\TableInitCommand;
+use ZhouOu\LaravelTool\Log\LogInjector;
 use ZhouOu\LaravelTool\Log\SystemLogInjector;
 use ZhouOu\LaravelTool\Table\Query\Extend\ApiPaginator;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
@@ -66,13 +67,13 @@ class BuilderProvider extends ServiceProvider
         // 是否使用自己的log
         if (ConfigTool::get('zhouOuConfig')['isOpenLog'] == true) {
             $this->_baseInject(
-                SystemLogInjector::class,
+                LogInjector::class,
                 './vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
                 __DIR__ . './Inject/HandleExceptionsInject.inject'
             );
         } else {
             $this->_baseInject(
-                SystemLogInjector::class,
+                LogInjector::class,
                 './vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
                 __DIR__ . './Inject/OldHandleExceptionsInject.inject',
                 true

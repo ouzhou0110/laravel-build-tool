@@ -96,7 +96,51 @@ return [
          * 系统错误日志默认根路径是：app
          * 默认配置为
          */
-        'logPath' => '/storage/logs/zhouou/',
+        'logPath' => '/storage/logs/system/',
+    ],
+
+    'debugLog' => [
+        /**
+         * 是否在捕获到异常时，立即写入文件，建议为false
+         * 设置为true，会有大量的os操作，耗性能
+         * 默认为：false
+         */
+        'logLimitWriteEnable' => false,
+
+
+        /**
+         * 日志文件最大文件大小--写入前判断，最终大小有浮动
+         * 单位：M
+         * 如果日志需求量大，建议设置为100m，且切割时间设置小一点
+         * 最大100m，超过将以100m处理
+         */
+        'logFileMaxSize' => 30,
+
+        /**
+         * 每个多少分钟切割一下日志文件
+         * 单位：d:天，h：小时，m:分钟
+         * 最多一天，配置大于一天不报错，但日志还是按一天切割
+         */
+        'logDivideTime' => '3m',
+
+        /**
+         * 日志文件前缀
+         * 默认为：log_
+         */
+        'logPrefix' => 'log_',
+
+
+        /**
+         * 日志文件后缀
+         * 默认为：txt
+         */
+        'logExt' => 'txt',
+
+        /**
+         * 系统错误日志默认根路径是：app
+         * 默认配置为
+         */
+        'logPath' => '/storage/logs/debug/',
     ],
 
 ];
