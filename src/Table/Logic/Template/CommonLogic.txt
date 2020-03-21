@@ -1,0 +1,11 @@
+<?php
+
+
+namespace @{selfNamespace};
+
+use ZhouOu\LaravelTool\Table\Logic\InitLogic;
+
+class CommonLogic extends InitLogic
+{
+    // 这里写拓展
+}

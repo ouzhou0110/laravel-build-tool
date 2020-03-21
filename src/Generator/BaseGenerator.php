@@ -31,11 +31,6 @@ abstract class BaseGenerator
      */
     abstract public static function init($baseConfig, $sonConfig);
 
-    private static $actionMap = [
-        'action' => 'CommonActionGenerator',
-        'model' => 'CommonModelGenerator',
-        'query' => 'CommonQueryGenerator'
-    ];
 
     /**
      * @Function: build
@@ -64,6 +59,9 @@ abstract class BaseGenerator
                     break;
                 case 'query':
                     $result = CommonQueryGenerator::init([],[]);
+                    break;
+                case 'logic':
+                    $result = CommonLogicGenerator::init([],[]);
                     break;
                 default:
                     $result = true;

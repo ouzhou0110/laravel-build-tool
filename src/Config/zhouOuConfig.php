@@ -14,7 +14,7 @@ return [
      * 是否开启输出调试日志，生产环境必须关闭
      * 默认为：false
      */
-    'isOpenPrintDebugInfo' => false,
+    'isOpenPrintDebugInfo' => true,
 
 
     /**
@@ -45,8 +45,8 @@ return [
     'tableInit' => [
         'model' => false,
         'action' => false,
-        'query' => true,
-        'logic' => false,
+        'query' => false,
+        'logic' => true,
     ],
 
 

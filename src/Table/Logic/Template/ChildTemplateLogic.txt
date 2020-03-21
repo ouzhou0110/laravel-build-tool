@@ -1,0 +1,14 @@
+<?php
+namespace @{selfNamespace};
+
+use Illuminate\Database\Eloquent\Builder;
+use @{fatherNamespace};
+
+class @{selfClassName} extends CommonLogic
+{
+
+    public function __construct()
+    {
+
+    }
+}

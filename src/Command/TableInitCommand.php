@@ -3,6 +3,7 @@ namespace ZhouOu\LaravelTool\Command;
 
 use Illuminate\Console\Command;
 use ZhouOu\LaravelTool\Generator\ActionGenerator;
+use ZhouOu\LaravelTool\Generator\LogicGenerator;
 use ZhouOu\LaravelTool\Generator\ModelGenerator;
 use ZhouOu\LaravelTool\Generator\QueryGenerator;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
@@ -67,6 +68,11 @@ class TableInitCommand extends Command
         // 开启了query组件初始化
         if (true === $tableBaseConfig['tableInit']['query']) {
             QueryGenerator::init($tableBaseConfig, $config);
+        }
+
+        // 开启了logic组件初始化
+        if (true === $tableBaseConfig['tableInit']['logic']) {
+            LogicGenerator::init($tableBaseConfig, $config);
         }
     }
 }
