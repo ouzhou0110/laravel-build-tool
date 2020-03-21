@@ -18,11 +18,10 @@ class LogInjector
         register_shutdown_function([LogInjector::class, 'shutdownHandler']);
     }
 
-    public function shutdownHandler()
+    public static function shutdownHandler()
     {
         DebugLog::init()->write();
         SystemLog::init()->write();
-        var_export('ss');
     }
 
     public function exceptionHandler($e)
@@ -30,7 +29,7 @@ class LogInjector
         DebugLog::init()->exceptionHandler($e);
     }
 
-    public function errorHandler($errNo, $errMsg, $errFile, $errLine)
+    public  function errorHandler($errNo, $errMsg, $errFile, $errLine)
     {
         DebugLog::init()->errorHandler($errNo, $errMsg, $errFile, $errLine);
     }
