@@ -65,10 +65,10 @@ class LogWriter
      * @Author: zhou.ou
      * @Email: <zhou.ou@starcor.com>
      * @Date: 2020-03-19  17:55
-     * @param string $tag 写入什么级别日志 debugLog | systemLog
+     * @param string $tag 写入什么级别日志 debug_log | system_log
      * @param array $msg 日志数据
      */
-    public function write(string $tag = 'debugLog', array $msg = ['error' => [], 'info' => []])
+    public function write(string $tag = 'debug_log', array $msg = ['error' => [], 'info' => []])
     {
         $this->config = $this->allConfig[$tag];
         foreach ($msg as $tag => $message) {
@@ -76,9 +76,9 @@ class LogWriter
                 continue;
             }
             // 创建或者获取日志文件路径文件
-            $logPath = $this->_getLogPath($tag);
+            $log_path = $this->_getLogPath($tag);
             // 获取文件句柄
-            $fs = $this->_getFileSource($logPath);
+            $fs = $this->_getFileSource($log_path);
             foreach ($message as $line) {
                 // 执行写入
                 fwrite($fs, $line);
@@ -104,9 +104,9 @@ class LogWriter
     private function _getLogPath(string $tag)
     {
         // 获取当前时间，生成对应的日志文件
-        $divideTime = strlen($this->config['logDivideTime']) > 0 ? $this->config['logDivideTime'] : $this->fileMaxTime;
+        $divideTime = strlen($this->config['log_divide_time']) > 0 ? $this->config['log_divide_time'] : $this->fileMaxTime;
         $fileName = $this->_getFileName($divideTime);
-        $configPath = trim($this->config['logPath'], '/');
+        $configPath = trim($this->config['log_path'], '/');
         $datePath = date('Y/m/d');
         return "../{$configPath}/{$tag}/{$datePath}/{$fileName}";
     }
@@ -137,7 +137,7 @@ class LogWriter
         // 检测文件是否达到限制，达到限制就切割日志文件
         if (file_exists($fileName)) {
             $fileSize = filesize($fileName) / (1024 * 1024);
-            $fileMaxSize = strlen($this->config['logFileMaxSize']) > 0 ? $this->config['logFileMaxSize'] : $this->fileMaxSize;
+            $fileMaxSize = strlen($this->config['log_file_max_size']) > 0 ? $this->config['log_file_max_size'] : $this->fileMaxSize;
             if ($fileSize >= $fileMaxSize) {
                 $prefix = substr($fileName, 0, strrpos($fileName, '.'));
                 $tag = substr($fileName, strpos($fileName,'T') + 1, 6);
@@ -186,9 +186,9 @@ class LogWriter
             $unit = 'm';
         }
         // 文件后缀
-        $ext = strlen($this->config['logExt']) > 0 ? $this->config['logExt'] : $this->ext;
+        $ext = strlen($this->config['log_ext']) > 0 ? $this->config['log_ext'] : $this->ext;
         // 文件前缀
-        $prefix = strlen($this->config['logPrefix']) > 0 ? $this->config['logPrefix'] : $this->prefix;
+        $prefix = strlen($this->config['log_prefix']) > 0 ? $this->config['log_prefix'] : $this->prefix;
         switch ($unit) {
             case 'd':
                 if ($time > 1) {

@@ -19,7 +19,7 @@ class DebugLog extends Log
     private function __construct()
     {
         $this->flag = rand(10000,99999);
-        $this->config = ConfigTool::get('zhouOuConfig')['debugLog'];
+        $this->config = ConfigTool::get('zhouOuConfig')['debug_log'];
     }
 
     public static function init()
@@ -66,9 +66,9 @@ class DebugLog extends Log
         } else {
             $this->messages['info'][] = $msg;
         }
-        $limitWrite = strlen($this->config['logLimitWriteEnable']) > 0 ?  $this->config['logLimitWriteEnable'] : $this->limitWriteEnable;
+        $limitWrite = strlen($this->config['log_limit_write_enable']) > 0 ?  $this->config['log_limit_write_enable'] : $this->limitWriteEnable;
         if($limitWrite == true) {
-            LogWriter::init()->write('debugLog', $this->messages);
+            LogWriter::init()->write('debug_log', $this->messages);
         }
         return true;
     }
@@ -116,9 +116,9 @@ class DebugLog extends Log
             $this->messages['info'][] = $msg;
         }
 
-        $limitWrite = strlen($this->config['logLimitWriteEnable']) > 0 ?  $this->config['logLimitWriteEnable'] : $this->limitWriteEnable;
+        $limitWrite = strlen($this->config['log_limit_write_enable']) > 0 ?  $this->config['log_limit_write_enable'] : $this->limitWriteEnable;
         if($limitWrite == true) {
-            LogWriter::init()->write('debugLog', $this->messages);
+            LogWriter::init()->write('debug_log', $this->messages);
         }
         return true;
     }
@@ -128,6 +128,6 @@ class DebugLog extends Log
      */
     public function write()
     {
-       LogWriter::init()->write('debugLog', $this->messages);
+       LogWriter::init()->write('debug_log', $this->messages);
     }
 }

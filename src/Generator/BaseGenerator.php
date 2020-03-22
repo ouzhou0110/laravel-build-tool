@@ -100,7 +100,7 @@ abstract class BaseGenerator
 
     public static function msg($msg)
     {
-        $isPrint = ConfigTool::get('zhouOuConfig')['isOpenPrintDebugInfo'];
+        $isPrint = ConfigTool::get('zhouOuConfig')['is_open_print_debug_info'];
         if ($isPrint == false) {
             return;
         }

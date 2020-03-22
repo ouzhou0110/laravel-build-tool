@@ -16,7 +16,7 @@ class ModelGenerator extends BaseGenerator
                 '@{fatherNamespace}' => $baseConfig['tableNamespace'] . '\Models\Commons\CommonModel',
                 '@{selfNamespace}' => $baseConfig['tableNamespace'] . '\Models' .  $sonConfig['namespace'],
                 '@{selfClassName}' => $sonConfig['fileName'] . 'Model',
-                '@{selfTableName}' => $baseConfig['tablePrefix'] . $sonConfig['tableName'],
+                '@{selfTableName}' => $baseConfig['table_prefix'] . $sonConfig['tableName'],
             ],
         ];
         $baseInfo['actionType'] = 'model';

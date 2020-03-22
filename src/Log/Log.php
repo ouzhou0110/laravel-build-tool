@@ -50,4 +50,12 @@ abstract class Log
      */
     abstract public function write();
 
+    /**
+     * 回收数据
+     */
+    public function __destruct()
+    {
+        $this->_clear('error');
+        $this->_clear('info');
+    }
 }

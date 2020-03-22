@@ -27,7 +27,7 @@ class Auth
     public function login(string $key, array $params = [], int $time = 7200)
     {
         // 配置检测
-        $ret = ConfigTool::check(['auth.key', 'auth.authMode']);
+        $ret = ConfigTool::check(['auth.auth_key', 'auth.auth_mode']);
         if ($ret['code'] == 0) {
             // 失败
             return $ret;
@@ -35,8 +35,8 @@ class Auth
 
         // 获取配置
         $authMode = ConfigTool::get('zhouOuConfig')['auth'];
-        $authKey = $authMode['key'];
-        $authMode = $authMode['authMode'];
+        $authKey = $authMode['auth_key'];
+        $authMode = $authMode['auth_mode'];
 
         $key = bcrypt(bcrypt(time() . $key . random_bytes(20)));
         session([
@@ -167,7 +167,7 @@ class Auth
     private function getKey()
     {
         // 配置检测
-        $ret = ConfigTool::check(['auth.key', 'auth.authMode']);
+        $ret = ConfigTool::check(['auth.auth_key', 'auth.auth_mode']);
         if ($ret['code'] == 0) {
             // 失败
             return false;
@@ -175,8 +175,8 @@ class Auth
 
         // 获取配置
         $authMode = ConfigTool::get('zhouOuConfig')['auth'];
-        $authKey = $authMode['key'];
-        $authMode = $authMode['authMode'];
+        $authKey = $authMode['auth_key'];
+        $authMode = $authMode['auth_mode'];
 
         if($authMode == 'cookie') {
             $key = request()->cookie($authKey);

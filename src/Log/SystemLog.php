@@ -20,7 +20,7 @@ class SystemLog extends Log
     private function __construct()
     {
         $this->flag = rand(10000,99999);
-        $this->config = ConfigTool::get('zhouOuConfig')['debugLog'];
+        $this->config = ConfigTool::get('zhouOuConfig')['debug_log'];
     }
 
     public static function init()
@@ -133,7 +133,7 @@ class SystemLog extends Log
      */
     public function write()
     {
-        LogWriter::init()->write('systemLog', $this->messages);
+        LogWriter::init()->write('system_log', $this->messages);
     }
 
 }

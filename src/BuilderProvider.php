@@ -61,7 +61,7 @@ class BuilderProvider extends ServiceProvider
     private function _injectTrait()
     {
         // 向controller注入ApiResponseInjector
-        if (ConfigTool::get('zhouOuConfig')['isInjectApiResponse'] == false) {
+        if (ConfigTool::get('zhouOuConfig')['is_inject_api_response'] == false) {
             $this->_baseInject(
                 ApiResponseInjector::class,
                 '../app/Http/Controllers/Controller.php',
@@ -69,7 +69,7 @@ class BuilderProvider extends ServiceProvider
         }
 
         // 是否使用自己的log
-        if (ConfigTool::get('zhouOuConfig')['isOpenLog'] == true) {
+        if (ConfigTool::get('zhouOuConfig')['is_open_log'] == true) {
             $this->_baseInject(
                 LogInjector::class,
                 './vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
