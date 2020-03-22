@@ -2,11 +2,10 @@
 
 namespace ZhouOu\LaravelTool;
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
+use ZhouOu\LaravelTool\Auth\Auth;
 use ZhouOu\LaravelTool\Command\TableInitCommand;
 use ZhouOu\LaravelTool\Log\LogInjector;
-use ZhouOu\LaravelTool\Log\SystemLogInjector;
 use ZhouOu\LaravelTool\Table\Query\Extend\ApiPaginator;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\FileTool;
@@ -23,6 +22,11 @@ class BuilderProvider extends ServiceProvider
     {
         // 注入api分页
         ApiPaginator::inject();
+
+        // 绑定auth
+        $this->app->singleton('auth', function() {
+            return $this->app->make(Auth::class);
+        });
     }
 
     /**

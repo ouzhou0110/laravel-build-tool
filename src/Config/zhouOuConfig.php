@@ -143,4 +143,21 @@ return [
         'logPath' => '/storage/logs/debug/',
     ],
 
+
+    /**
+     * auth 配置
+     */
+    'auth' => [
+        /**
+         * 登录认证方法，cookie认证，还是使用head加入token字段认证,
+         * 建议使用cookie模式，因为postman如果使用token，很难配置header
+         */
+        'authMode' => 'cookie',
+
+        /**
+         * 认证字段的key，用于获取对应数据
+         */
+        'key' => 'token-cookie',
+    ],
+
 ];
