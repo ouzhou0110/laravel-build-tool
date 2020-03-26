@@ -25,8 +25,9 @@ abstract class InitAction
 
     private function _init()
     {
-        $model = app()->make($this->model());
-        if (!$model instanceof Model) {
+        $this->model = app()->make($this->model());
+
+        if (!$this->model instanceof Model) {
             throw new Exception("Class {$this->model()} must be an instance of Illuminate\Database\Eloquent\Model");
         }
     }

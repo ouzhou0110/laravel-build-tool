@@ -72,13 +72,13 @@ class BuilderProvider extends ServiceProvider
         if (ConfigTool::get('zhouOuConfig')['is_open_log'] == true) {
             $this->_baseInject(
                 LogInjector::class,
-                './vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
+                '../vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
                 __DIR__ . './Inject/HandleExceptionsInject.inject'
             );
         } else {
             $this->_baseInject(
                 LogInjector::class,
-                './vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
+                '../vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php',
                 __DIR__ . './Inject/OldHandleExceptionsInject.inject',
                 true
             );

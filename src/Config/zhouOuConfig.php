@@ -22,7 +22,7 @@ return [
      * 默认为：true
      * 每次更新需要使用 composer dumpautoload 重新加载
      */
-    'is_open_log' => true,
+    'is_open_log' => false,
 
 
     ################## artisan table配置 #########################
@@ -162,6 +162,23 @@ return [
     ],
 
     ########################## 文件模块 ###############################
+
+    /**
+     * 文件上传使用存储引擎：
+     * local => 使用服务本身
+     * ftp => 使用ftp服务器
+     * 默认使用local，生产环境中尽量使用一种引擎。数据库储存时会将当前引擎的信息也存储
+     * 已兼容混合使用情况。
+     * 请使用
+     */
+    'file_upload_driver' => 'ftp',
+
+    /**
+     * 文件上传默认字段名称
+     * 如何在上传接口中不传递标识名称，将自动使用这个
+     */
+    'file_upload_tag' => 'file',
+
     /**
      * file 配置，文件上传到本地服务器
      */
@@ -177,7 +194,7 @@ return [
         /**
          * 允许上传的文件后缀
          */
-        'file_allow_ext' => ['jpg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf'],
+        'file_allow_ext' => ['jpg', 'png', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf', 'txt'],
 
         /**
          * 同时上传文件上限，请结合 file_max_size 大小进行设计
@@ -188,7 +205,39 @@ return [
         /**
          * 文件上传路径
          */
-        'file_save_path' => '/upload',
+        'file_save_path' => '/ftp',
     ],
 
+
+    'ftp' => [
+        /**
+         * ftp服务器公网ip
+         */
+        'ftp_host' => '106.12.102.124',
+
+        /**
+         * ftp服务器端口
+         */
+        'ftp_port' => '21',
+
+        /**
+         * ftp用户名
+         */
+        'ftp_name' => 'fscftp',
+
+        /**
+         * ftp用户密码
+         */
+        'ftp_password' => '123456',
+
+        /**
+         * ftp最长等待数
+         */
+        'ftp_timeout' => 120,
+
+        /**
+         *
+         */
+        'ftp_file_path' => '/zhouou/file'
+    ],
 ];

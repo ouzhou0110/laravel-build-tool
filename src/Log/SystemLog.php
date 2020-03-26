@@ -40,12 +40,12 @@ class SystemLog extends Log
      *
      * @param string $msg
      * @param array $params
-     *
+     * @param int $backtraceNum 记录调用栈数量
      */
-    public function error(string $msg, $params = [])
+    public function error(string $msg, $params = [], int $backtraceNum = 0)
     {
 
-        $this->add('error', $msg , $params);
+        $this->add('error', $msg , $params, $backtraceNum);
     }
 
     /**
@@ -57,11 +57,11 @@ class SystemLog extends Log
      *
      * @param string $msg
      * @param array $params
-     *
+     * @param int $backtraceNum 记录调用栈数量
      */
-    public  function info(string $msg, array $params = [])
+    public  function info(string $msg, array $params = [], int $backtraceNum = 0)
     {
-        $this->add('info', $msg ,$params);
+        $this->add('info', $msg ,$params, $backtraceNum);
     }
 
     /**
@@ -113,18 +113,26 @@ class SystemLog extends Log
      * @param string $msg
      *
      * @param array $params
+     * @param int $backtraceNum
      */
-    private  function add(string $tag, string $msg, array $params)
+    private  function add(string $tag, string $msg, array $params, int $backtraceNum = 0)
     {
         if (count($params) > 0) {
             $params = var_export($params,true);
         } else {
             $params = '';
         }
+        // 记录调用栈数量
+        if ($backtraceNum > 0) {
+            // 去除当前方法栈记录
+            $backtrace = array_slice(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $backtraceNum + 1), 1);
+            $msg .= "调用栈: " . var_export($backtrace, true);
+            unset($backtrace);
+        }
         $microtime = (string)microtime(true);
         $microtime = substr($microtime, strpos($microtime, '.') + 1, 4);
         $time = date('Y-m-d H:i:s.') . $microtime;
-        $msg = $this->flag . "[$time] $msg";
+        $msg = $this->flag . "[$time] $msg 参数：";
         $this->messages[$tag][] = $msg . $params . "\r\n";
     }
 
