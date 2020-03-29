@@ -180,6 +180,11 @@ return [
     'file_upload_tag' => 'file',
 
     /**
+     * ftp资源服务url前缀
+     */
+    'ftp_source_url_prefix' => '/ftp/',
+
+    /**
      * file 配置，文件上传到本地服务器
      */
     'file' => [
@@ -219,6 +224,11 @@ return [
          * ftp服务器端口
          */
         'ftp_port' => '21',
+
+        /**
+         * ftp服务器的资源服务端口
+         */
+        'static_file_port' => '80',
 
         /**
          * ftp用户名

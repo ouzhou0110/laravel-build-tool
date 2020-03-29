@@ -86,7 +86,13 @@ class File
                 return url( $arr[1]);
             } else if ($arr[0] == 'ftp') {
                 $ftpConfig = ConfigTool::get('zhouOuConfig')['ftp'];
-                return 'ftp://' . $ftpConfig['ftp_host'] . ':' . $ftpConfig['ftp_port'] . $arr[1];
+                $prefix = trim(ConfigTool::get('zhouOuConfig')['ftp_source_url_prefix'], '/');
+                if (strlen($prefix) > 0) {
+                    $prefix = "/$prefix";
+                } else {
+                    $prefix = '';
+                }
+                return 'http://' . $ftpConfig['ftp_host'] . ':' . $ftpConfig['static_file_port'] . $prefix . $arr[1];
             }
         } else {
             return $url;
