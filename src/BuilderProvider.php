@@ -48,6 +48,11 @@ class BuilderProvider extends ServiceProvider
         // 注入trait--只能一次注入，多次不同注入同一个文件，会导致原来注入数据丢失
         $this->_injectTrait();
 
+        // 发布配置文件
+        $this->publishes([
+            __DIR__ . '/Config/zhouOuConfig.php' => config_path('zhouOuConfig.php'),
+        ]);
+
     }
 
     /**
