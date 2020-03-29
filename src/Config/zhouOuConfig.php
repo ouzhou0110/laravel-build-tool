@@ -218,7 +218,7 @@ return [
         /**
          * ftp服务器公网ip
          */
-        'ftp_host' => '106.12.102.124',
+        'ftp_host' => '',
 
         /**
          * ftp服务器端口
@@ -233,12 +233,12 @@ return [
         /**
          * ftp用户名
          */
-        'ftp_name' => 'fscftp',
+        'ftp_name' => '',
 
         /**
          * ftp用户密码
          */
-        'ftp_password' => '123456',
+        'ftp_password' => '',
 
         /**
          * ftp最长等待数
