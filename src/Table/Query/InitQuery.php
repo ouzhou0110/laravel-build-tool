@@ -90,7 +90,7 @@ abstract class InitQuery
         if ($tag === self::WEB_TAG) {
             $data = $this->model->where($where)->paginate($pageSize, $column,'page', $page);
         } else {
-            $data = $this->model->where($where)->select($column)->ApiPaginate($pageSize, $page);
+            $data = $this->model->where($where)->select($column)->apiPaginate($pageSize, $page);
         }
         return $data;
     }

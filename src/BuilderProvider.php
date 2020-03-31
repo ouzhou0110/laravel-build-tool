@@ -24,7 +24,7 @@ class BuilderProvider extends ServiceProvider
         ApiPaginator::inject();
 
         // 绑定auth
-        $this->app->singleton('oauth', function() {
+        $this->app->singleton('oauth', function () {
             return $this->app->make(Auth::class);
         });
     }
@@ -66,7 +66,7 @@ class BuilderProvider extends ServiceProvider
     private function _injectTrait()
     {
         // 向controller注入ApiResponseInjector
-        if (ConfigTool::get('zhouOuConfig')['is_inject_api_response'] == false) {
+        if (ConfigTool::get('zhouOuConfig')['is_inject_api_response'] == true) {
             $this->_baseInject(
                 ApiResponseInjector::class,
                 dirname(__DIR__, 4) . '/app/Http/Controllers/Controller.php',
