@@ -24,7 +24,7 @@ class BuilderProvider extends ServiceProvider
         ApiPaginator::inject();
 
         // 绑定auth
-        $this->app->singleton('auth', function() {
+        $this->app->singleton('oauth', function() {
             return $this->app->make(Auth::class);
         });
     }
