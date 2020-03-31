@@ -5,7 +5,7 @@ use ZhouOu\LaravelTool\Log\SystemLog;
 
 final class ConfigTool
 {
-    private static $config;
+    private static $config = null;
     /**
      * @Function: get
      * @Notes: 读取配置
@@ -21,9 +21,13 @@ final class ConfigTool
     public static function get($name)
     {
         // 读取默认配置--框架中config目录下没有找到，就使用包中config
-        if (!$tableBaseConfig = config($name)) {
-            $tableBaseConfig = require_once __DIR__ . "/../Config/{$name}.php";
-            if (true !== $tableBaseConfig) {
+        if ( null == self::$config) {
+            if (!$tableBaseConfig = config($name)) {
+                $tableBaseConfig = require_once __DIR__ . "/../Config/{$name}.php";
+                if (true !== $tableBaseConfig) {
+                    self::$config = $tableBaseConfig;
+                }
+            } else {
                 self::$config = $tableBaseConfig;
             }
         }

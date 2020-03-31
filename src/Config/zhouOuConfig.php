@@ -30,7 +30,7 @@ return [
     /**
      * 默认表名前缀-功能暂未实现
      */
-    'tablePrefix' => '',
+    'table_prefix' => '',
 
     /**
      * table组件的命名空间-model、action、service、query文件夹的上级命名空间
