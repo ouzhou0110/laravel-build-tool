@@ -50,7 +50,7 @@ class OAuth
             'value' => ['token' => [
                 'tokenName' => $authKey,
                 'tokenValue' => $key
-            ], $params]];
+            ]];
         return ReturnInfoTool::msg(1, 'token生成成功', $data);
     }
 
