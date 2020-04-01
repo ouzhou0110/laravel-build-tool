@@ -3,7 +3,7 @@
 namespace ZhouOu\LaravelTool;
 
 use Illuminate\Support\ServiceProvider;
-use ZhouOu\LaravelTool\Auth\Auth;
+use ZhouOu\LaravelTool\Auth\OAuth;
 use ZhouOu\LaravelTool\Command\TableInitCommand;
 use ZhouOu\LaravelTool\Log\LogInjector;
 use ZhouOu\LaravelTool\Table\Query\Extend\ApiPaginator;
@@ -24,8 +24,8 @@ class BuilderProvider extends ServiceProvider
         ApiPaginator::inject();
 
         // 绑定auth
-        $this->app->singleton('oauth', function () {
-            return $this->app->make(Auth::class);
+        $this->app->singleton('oAuth', function () {
+            return $this->app->make(OAuth::class);
         });
     }
 

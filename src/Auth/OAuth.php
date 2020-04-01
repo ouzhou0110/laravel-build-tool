@@ -7,7 +7,7 @@ use ZhouOu\LaravelTool\Log\SystemLog;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\ReturnInfoTool;
 
-class Auth
+class OAuth
 {
     /**
      * @Function: login

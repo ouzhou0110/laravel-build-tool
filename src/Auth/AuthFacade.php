@@ -10,6 +10,6 @@ class AuthFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'auth';
+        return 'oAuth';
     }
 }
