@@ -17,23 +17,35 @@ class UuidTool
      * @return string
      *
      */
-    public static function get()
+    public static function get($something = 'rand')
     {
-        try
-        {
-            $rand1 = random_bytes(5);
-            $time = date('ymdHis') . microtime();
-            $ip = IpTool::get_client_ip_proxy_support();
-            $rand2 = random_bytes(5);
 
-        } catch (\Exception $e)
-        {
-            $rand1 = rand(10000, 99999);
-            $ip = IpTool::get_client_ip_proxy_support();
-            $time = date('ymdHis') . microtime(true);
-            $rand2 = rand(10000, 99999);
-        }
+        $result = dechex(  time() );
+        $result = $result.dechex( np_millisecond() );
 
-        return md5($rand1 . $time . $ip . $rand2);
+        $a = "";
+        if( isset( $_ENV ["COMPUTERNAME"] ) )
+            $a .= $_ENV ["COMPUTERNAME"];
+        if( isset( $_SERVER ["SERVER_ADDR"] ) )
+            $a .= $_SERVER ["SERVER_ADDR"];
+        if( isset( $_SERVER ["REMOTE_ADDR"] ) )
+            $a .= $_SERVER ["REMOTE_ADDR"];
+
+        //echo $a;
+
+        $a = $a.rand(0,10000);
+        $a = $a.rand(0,10000);
+        $a = $a.rand(0,10000);
+        $a = $a.microtime ();
+
+
+        $result = $result.md5( $a.$something );
+        return substr( $result, 0, 32 );
     }
+}
+
+function np_millisecond()
+{
+    list ( $usec, $sec ) = explode ( ' ', microtime () );
+    return intval( substr ( $usec, 2, 3 ) );
 }

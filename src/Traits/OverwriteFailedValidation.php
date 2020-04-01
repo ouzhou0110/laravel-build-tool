@@ -1,6 +1,6 @@
 <?php
 
-namespace OuZhou\LaravelToolGenerator\Traits;
+namespace ZhouOu\LaravelTool\Traits;
 
 use Illuminate\Contracts\Validation\Validator;
 
