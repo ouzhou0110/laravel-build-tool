@@ -1,9 +1,9 @@
 <?php
 
-
 namespace ZhouOu\LaravelTool\Log;
 
 use Illuminate\Http\Request;
+use JokerAuth;
 use ZhouOu\LaravelTool\Tool\ConfigTool;
 use ZhouOu\LaravelTool\Tool\IpTool;
 
@@ -11,7 +11,7 @@ class SystemLog extends Log
 {
 
     // 仿进程id，区分一次请求的日志
-    protected  $flag;
+    protected $flag;
 
     private static $instance;
 
@@ -19,7 +19,7 @@ class SystemLog extends Log
 
     private function __construct()
     {
-        $this->flag = rand(10000,99999);
+        $this->flag = rand(10000, 99999);
         $this->config = ConfigTool::get('zhouOuConfig')['debug_log'];
     }
 
@@ -45,7 +45,7 @@ class SystemLog extends Log
     public function error(string $msg, $params = [], int $backtraceNum = 0)
     {
 
-        $this->add('error', $msg , $params, $backtraceNum);
+        $this->add('error', $msg, $params, $backtraceNum);
     }
 
     /**
@@ -59,9 +59,9 @@ class SystemLog extends Log
      * @param array $params
      * @param int $backtraceNum 记录调用栈数量
      */
-    public  function info(string $msg, array $params = [], int $backtraceNum = 0)
+    public function info(string $msg, array $params = [], int $backtraceNum = 0)
     {
-        $this->add('info', $msg ,$params, $backtraceNum);
+        $this->add('info', $msg, $params, $backtraceNum);
     }
 
     /**
@@ -72,20 +72,21 @@ class SystemLog extends Log
      * @Date: 2020-03-20  15:19
      *
      * @param Request $request
+     * @param string $userAccountField 用户唯一标识字段
      *
      *
      */
-    public  function request(Request $request)
+    public function request(Request $request, string $userAccountField = 'nns_account')
     {
-//        $data['account_id'] = JokerAuth::getUserId($request); // 操作者账号
+        $data['account_id'] = JokerAuth::get($userAccountField); // 操作者账号
         $data['uri'] = $request->getUri(); // uri
         $data['http_code'] = http_response_code(); // 相应状态码
         $data['method'] = $request->method(); // 请求方法
         $data['host_protocol'] = $request->getSchemeAndHttpHost(); // 主机
         $data['action'] = var_export($request->route()->getAction(), true); // 请求路由
-//        $data['request_body'] = var_export($request->all(), true); // 请求体--参数
+        $data['request_body'] = var_export($request->all(), true); // 请求体--参数
         $data['content_type'] = $request->header('content-type'); // 内容类型
-        $data['ip'] = IpTool::get_client_ip_proxy_support();; // 主机ip
+        $data['ip'] = IpTool::get_client_ip_proxy_support(); // 主机ip
         $data['referer'] = $request->server('HTTP_REFERER'); // 请求缘由--可以做防盗链，也可以伪造，所以不太可信
         $data['cookie'] = var_export($request->cookies->all(), true); // cookie
         $data['token'] = $request->header('token'); // 令牌
@@ -95,12 +96,11 @@ class SystemLog extends Log
          */
         $log = '';
         foreach ($data as $k => $item) {
-            $log .= "\t". '{'. $k . ' => ' . ($item ?? '#') . '}';
+            $log .= "\t" . '{' . $k . ' => ' . ($item ?? '#') . '}';
         }
 
-        $this->add('info', $log , $request->all());
+        $this->add('info', $log, $request->all());
     }
-
 
     /**
      * @Function: add
@@ -115,10 +115,10 @@ class SystemLog extends Log
      * @param array $params
      * @param int $backtraceNum
      */
-    private  function add(string $tag, string $msg, array $params, int $backtraceNum = 0)
+    private function add(string $tag, string $msg, array $params, int $backtraceNum = 0)
     {
         if (count($params) > 0) {
-            $params = var_export($params,true);
+            $params = var_export($params, true);
         } else {
             $params = '';
         }
@@ -129,7 +129,7 @@ class SystemLog extends Log
             $msg .= "调用栈: " . var_export($backtrace, true);
             unset($backtrace);
         }
-        $microtime = (string)microtime(true);
+        $microtime = (string) microtime(true);
         $microtime = substr($microtime, strpos($microtime, '.') + 1, 4);
         $time = date('Y-m-d H:i:s.') . $microtime;
         $msg = $this->flag . "[$time] $msg 参数：";
