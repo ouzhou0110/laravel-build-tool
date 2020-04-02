@@ -24,7 +24,7 @@
                 "ZhouOu\\LaravelTool\\BuilderProvider"
             ],
             "aliases": {
-              'JokerAuth': "ZhouOu\\LaravelTool\\Auth\\AuthFacade"
+              "JokerAuth": "ZhouOu\\LaravelTool\\Auth\\AuthFacade"
             }
         }
     },
