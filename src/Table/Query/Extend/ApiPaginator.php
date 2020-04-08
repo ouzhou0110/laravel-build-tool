@@ -30,7 +30,7 @@ class ApiPaginator extends LengthAwarePaginator
             $list = $data->getCollection(); // 保持数据为collection
             $data = $data->toArray();
             return [
-                'pageSize' => $data['per_page'],
+                'page_size' => $data['per_page'],
                 'page' => $data['current_page'],
                 'total' => $data['total'],
                 'list' => $list,
