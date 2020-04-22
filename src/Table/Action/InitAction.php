@@ -70,6 +70,80 @@ abstract class InitAction
     }
 
 
+    /**
+     * @Function: execute
+     * @Notes: 执行sql
+     * @Author: Joker
+     * @Date: 2020-04-22  16:32
+     *
+     * @param $sql
+     *
+     * @return array
+     * 
+     */
+    public function execute($sql)
+    {
+        try {
+            $data =  \DB::update($sql);
+        } catch (\Exception $e) {
+            return ReturnInfoTool::msg(0, $e->getMessage());
+        }
+        return ReturnInfoTool::msg(1, '', ['ret' => $data > 0 ?? false]);
+    }
+
+    /**
+     * Function: batchInsert
+     * Notes: 批量插入。二维数组
+     * User: Joker
+     * Email: <jw.oz@outlook.com>
+     * Date: 2020-04-19  22:14
+     * @param array $data
+     * @param string|null $table
+     * @return array
+     */
+    public function batchInsert(array $data, string $table = null)
+    {
+         // return $this->model->insert($data);//有bug
+        // 重写db的insert，原insert在5.8有问题
+        if (!is_array(reset($data))) {
+            $data = [$data];
+        }
+        // 获取key
+        $keys = array_keys(reset($data));
+        $keyStr = '(`' . implode("`,`", $keys) . '`)';
+        unset($keys);
+        // 获取表
+        $table = $table ?? $this->model->table;
+        // 封装sql
+        $sql = "INSERT INTO {$table} {$keyStr} VALUES";
+        foreach ($data as $item) {
+            $sql .= " ('" . implode("','", $item) . "'),";
+        }
+        // 去除尾逗号
+        $sql = rtrim($sql, ',');
+        // 执行sql
+        try {
+            if (!\DB::insert(\DB::raw($sql))) {
+                throw new \Exception('新增失败');
+            }
+            return ReturnInfoTool::msg(1, '新增成功');
+        } catch (\Exception $e) {
+            return ReturnInfoTool::msg(0, $e->getMessage());
+        }
+    }
+
+
+    /**
+     * Function: batchUpdate
+     * Notes: 批量更新
+     * User: Joker
+     * Email: <jw.oz@outlook.com>
+     * Date: 2020-04-06  15:41
+     * @param array $updateData
+     * @param string $queryColumn
+     * @param string|null $tableName
+     * @return array|void
+     */
     public function batchUpdate(array $updateData, string $queryColumn = 'id', string $tableName = null)
     {
         try {
@@ -92,7 +166,7 @@ abstract class InitAction
                     $start++;
                 }
             } else {
-                $data = $updateData;
+                $data = [$updateData];
             }
             \DB::beginTransaction();
             // 拼接sql
@@ -103,14 +177,23 @@ abstract class InitAction
                     $sql .= " $column = CASE";
                     foreach ($item as $value) {
                         $sql .= " WHEN $queryColumn = '{$value[$queryColumn]}'";
-                        $sql .= " THEN $value[$column]";
+                        $sql .= " THEN '$value[$column]'";
                     }
-                    $sql .= " ELSE $column"; // 不是就保持不变
+                    $sql .= " ELSE $column END,"; // 不是就保持不变
                 }
-                echo $sql;
+                // 去除为逗号
+                $sql = rtrim($sql, ',');
+                $sql .= " WHERE $queryColumn IN('" . implode("','", array_column($item, 'nns_id')) . "')";
+                // echo $sql;die;
+                if (!\DB::update(\DB::raw($sql))) {
+                    throw new \Exception('更新失败');
+                }
             }
+            \DB::commit();
+            return ReturnInfoTool::msg(1, '更新成功');
         } catch (\Exception $e) {
-
+            \DB::rollback();
+            return ReturnInfoTool::msg(0, $e->getMessage());
         }
     }
 }
