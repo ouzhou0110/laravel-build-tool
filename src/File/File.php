@@ -51,11 +51,19 @@ class File
         }
         // 处理数据
         $data = [];
-        foreach ($files['name'] as $key => $value) {
+        if (is_array($files['name'])) {
+            foreach ($files['name'] as $key => $value) {
+                $data[] = [
+                    'fileName' => $files['name'][$key],
+                    'fileTmpName' => $files['tmp_name'][$key],
+                    'fileSize' => $files['size'][$key],
+                ];
+            }
+        } else {
             $data[] = [
-                'fileName' => $files['name'][$key],
-                'fileTmpName' => $files['tmp_name'][$key],
-                'fileSize' => $files['size'][$key],
+                'fileName' => $files['name'],
+                'fileTmpName' => $files['tmp_name'],
+                'fileSize' => $files['size'],
             ];
         }
         return $data;

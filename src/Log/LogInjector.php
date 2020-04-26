@@ -29,7 +29,7 @@ class LogInjector
         DebugLog::init()->exceptionHandler($e);
     }
 
-    public  function errorHandler($errNo, $errMsg, $errFile, $errLine)
+    public  static function errorHandler($errNo, $errMsg, $errFile, $errLine)
     {
         DebugLog::init()->errorHandler($errNo, $errMsg, $errFile, $errLine);
     }
