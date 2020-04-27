@@ -89,7 +89,7 @@ class JokerAuth
     {
         $key = $this->getKey();
         if ($key == false || $key == NULL) {
-            return true;
+            return false;
         }
         return session($key) ? true : false;
     }
