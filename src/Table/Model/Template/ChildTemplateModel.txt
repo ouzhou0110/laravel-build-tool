@@ -6,7 +6,7 @@ use @{fatherNamespace};
 class @{selfClassName} extends CommonModel
 {
     // 数据表名
-    protected $table = '@{selfTableName}';
+    public $table = '@{selfTableName}';
 
     /**
      * 远程一对多或者远程一对一的参数提示
