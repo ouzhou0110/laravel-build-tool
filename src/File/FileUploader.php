@@ -105,9 +105,9 @@ class FileUploader extends File
     private function upload(array $files, array $exts, string $tag)
     {
         if ($this->driver == 'ftp') {
-            return $this->uploadFtp($files, $exts);
+            return $this->uploadFtp($files, $exts, $tag);
         }
-        return $this->uploadLocal($files, $exts);
+        return $this->uploadLocal($files, $exts, $tag);
 
     }
 
