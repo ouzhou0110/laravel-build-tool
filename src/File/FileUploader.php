@@ -66,11 +66,43 @@ class FileUploader extends File
             $exts = $this->config['file_allow_ext'];
         }
 
-        return $this->upload($files, $exts);
+        // 格式化路径
+        $tag = $this->formatPath($tag);
+        return $this->upload($files, $exts, $tag);
+    }
+
+    /**
+     * Function: formatPath
+     * Notes: 格式化路径
+     * User: Joker
+     * Email: <jw.oz@outlook.com>
+     * Date: 2020-05-04  14:41
+     * @param string $path
+     * @return string
+     */
+    private function formatPath(string $path)
+    {
+        if (strlen($path) < 1) {
+            return '';
+        }
+
+        return trim(str_replace('\\', '/', $path), '/');
     }
 
 
-    public function upload(array $files, array $exts)
+    /**
+     * Function: upload
+     * Notes: 上传文件
+     * User: Joker
+     * Email: <jw.oz@outlook.com>
+     * Date: 2020-05-04  14:41
+     * @param array $files
+     * @param array $exts
+     * @param string $tag
+     * @return array
+     * @throws \Exception
+     */
+    private function upload(array $files, array $exts, string $tag)
     {
         if ($this->driver == 'ftp') {
             return $this->uploadFtp($files, $exts);
@@ -89,10 +121,10 @@ class FileUploader extends File
      * @param $files
      * @param $exts
      *
+     * @param string $tag
      * @return array
-     *
      */
-    private function uploadLocal($files, $exts)
+    private function uploadLocal($files, $exts, string $tag)
     {
         // 返回指
         $data = [
@@ -103,7 +135,7 @@ class FileUploader extends File
         ];
 
         // 创建文件路径
-        $path = '/' . trim($this->config['file_save_path'], '/') . '/' . date('Y/m/d', time());
+        $path = '/' . trim($this->config['file_save_path'], '/') . '/' . $tag . '/' . date('Y/m/d', time());
         if (!file_exists(public_path() . $path)) {
             mkdir(public_path() . $path, 0777, true);
         }
@@ -144,11 +176,12 @@ class FileUploader extends File
      * @param array $files
      * @param array $exts
      *
+     * @param string $tag
      * @return array
      *
      * @throws \Exception
      */
-    private function uploadFtp(array $files,array $exts)
+    private function uploadFtp(array $files,array $exts, string $tag)
     {
         // 返回指
         $data = [
@@ -159,7 +192,7 @@ class FileUploader extends File
         ];
 
         // 创建文件路径
-        $path = '/' . trim($this->ftpConfig['ftp_file_path'], '/') . '/' . date('Y/m/d', time());
+        $path = '/' . trim($this->ftpConfig['ftp_file_path'], '/') . '/' . $tag . '/' . date('Y/m/d', time());
 
         // 循环写入文件
         foreach ($files as $file) {
